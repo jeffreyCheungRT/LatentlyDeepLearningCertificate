@@ -13,6 +13,7 @@
 import math
 import numpy as np
 import tensorflow as tf
+import sys
 
 # Local imports
 from batch_generator import batch_generator
@@ -264,6 +265,7 @@ class scrn_graph(object):
                         cst = session.run(self._cost, feed_dict=training_feed_dict)
                         print('     Total Batches: %d  Current Batch: %d  Cost: %.2f' % 
                               (batch_ctr, batch+1, cst))
+                        sys.stdout.flush()
                       
                 # Validation Step:
         
