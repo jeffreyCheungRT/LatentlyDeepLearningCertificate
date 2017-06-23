@@ -12,6 +12,7 @@
 import math
 import sys
 import argparse
+import os
 
 # Local Imports
 sys.path.insert(0, 'python')
@@ -63,7 +64,6 @@ parser = argparse.ArgumentParser()
 parser.add_argument('-b', '--batch_size', type=int, default=16)
 parser.add_argument('-e', '--num_epochs', type=int,  default=1)
 parser.add_argument('-g', '--num_gpus', type=int, default=4)
-parser.add_argument('-d', '--data_file', type=str, default="text8.zip")
 args = parser.parse_args()
 
 batch_size = args.batch_size        # Batch size for each tower
@@ -76,10 +76,10 @@ num_gpus = args.num_gpus            # Number of GPUs (towers) available
 num_validation_unfoldings = 1000    # Number of validation unfoldings
 optimization_frequency = 5          # Number of unfoldings before optimization step
 summary_frequency = 500             # Summary information is displayed after training this many batches
-filename = args.data_file           # Data file
+filename = os.path.join(os.path.dirname(os.path.abspath(__file__)), "text8.zip")
 
 print("Running with data_file=%s, batch_size=%d, num_epochs=%d, num_gpus=%d" % (filename, batch_size, num_epochs, num_gpus))
-
+sys.stdout.flush()
 
 # Prepare training, validation, test data sets
 raw_data = read_data(usecase_flg, filename)
